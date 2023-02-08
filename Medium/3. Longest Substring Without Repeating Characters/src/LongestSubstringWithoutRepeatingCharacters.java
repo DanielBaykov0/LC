@@ -1,5 +1,7 @@
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class LongestSubstringWithoutRepeatingCharacters {
 
@@ -55,5 +57,22 @@ public class LongestSubstringWithoutRepeatingCharacters {
         }
 
         return max;
+    }
+
+    public int lengthLongestSubstring(String s) {
+        Set<Character> set = new HashSet<>();
+        int startWindow = 0;
+        int maxLength = 0;
+
+        for(int endWindow = 0; endWindow < s.length(); endWindow++) {
+
+            while (set.contains(s.charAt(endWindow))){
+                set.remove(s.charAt(startWindow));
+                startWindow++;
+            }
+            set.add(s.charAt(endWindow));
+            maxLength = Math.max(maxLength, endWindow - startWindow + 1);
+        }
+        return maxLength;
     }
 }
