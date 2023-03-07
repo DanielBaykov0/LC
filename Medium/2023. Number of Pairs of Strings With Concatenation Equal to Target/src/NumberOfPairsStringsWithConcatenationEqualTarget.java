@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 public class NumberOfPairsStringsWithConcatenationEqualTarget {
 
     public static void main(String[] args) {
@@ -24,5 +26,25 @@ public class NumberOfPairsStringsWithConcatenationEqualTarget {
         }
 
         return result;
+    }
+
+    public int pairs(String[] nums, String target) {
+        int count = 0;
+        HashMap<String, Integer> map = new HashMap<>();
+        for (int indx = 0; indx < nums.length; indx++) {
+            map.put(nums[indx], map.getOrDefault(nums[indx], 0) + 1);
+        }
+
+
+        for (String str : nums) {
+            if (target.startsWith(str)) {
+                if (map.get(target.substring(str.length())) != null) {
+                    count += map.get(target.substring(str.length()));
+                    if (str.equals(target.substring(str.length()))) count--;
+                }
+            }
+        }
+
+        return count;
     }
 }
